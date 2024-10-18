@@ -7,7 +7,7 @@ const ToolsListData = ({
   data,
   type,
 }: {
-  data: ToolData | null;
+  data: ToolData[] | null;
   type: string;
 }) => {
   console.log("tools", data);
