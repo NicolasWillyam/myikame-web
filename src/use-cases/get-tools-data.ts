@@ -13,9 +13,6 @@ export const getToolsData = async (token: string): Promise<ToolData> => {
         },
       }
     );
-
-    console.log("đabáhgdh", response.data.data);
-
     return response.data.data; // Trả về dữ liệu người dùng từ backend
   } catch (error) {
     console.error("Error fetching user from backend:", error);

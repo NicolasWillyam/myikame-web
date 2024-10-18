@@ -1,5 +1,4 @@
 import React from "react";
-import CheckList from "./check-list";
 
 const checkList = [
   {

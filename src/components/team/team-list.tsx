@@ -3,7 +3,6 @@ import React from "react";
 import Image from "next/image";
 
 const TeamList = ({ list }: { list: UserDetails[] }) => {
-  console.log("list", list);
   return (
     <div className="flex flex-col gap-4">
       {list.map(

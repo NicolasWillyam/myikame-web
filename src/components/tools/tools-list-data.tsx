@@ -10,8 +10,6 @@ const ToolsListData = ({
   data: ToolData[] | null;
   type: string;
 }) => {
-  console.log("tools", data);
-
   return (
     <div className="w-full grid lg:grid-cols-2 gap-4 mt-4">
       {data?.map(

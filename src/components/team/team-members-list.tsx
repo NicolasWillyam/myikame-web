@@ -48,9 +48,15 @@ const TeamMembersList = () => {
       user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleCloseDialog = () => {
+    setTimeout(() => {
+      setSearchTerm(""); // Đặt lại searchTerm về chuỗi rỗng
+    }, 500); // Thay đổi thời gian tại đây nếu cần
+  };
+
   const maxUsers = 5;
   return (
-    <Dialog>
+    <Dialog onOpenChange={handleCloseDialog}>
       <DialogTrigger>
         <div className="flex items-center">
           {inActivedUsers.slice(0, maxUsers).map(

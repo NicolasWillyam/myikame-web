@@ -5,7 +5,7 @@ import React from "react";
 
 const ToolCard = ({ data }: { data: ToolData }) => {
   return (
-    <a href={`https://${data.name}.ikameglobal.com/home`} target="_blank">
+    <a href={`https://${data.name}.ikameglobal.com`} target="_blank">
       <div className="w-full h-full border bg-white rounded-2xl p-6 flex gap-4 items-start hover:scale-[102%] hover:duration-300  hover:shadow-lg cursor-pointer">
         <Image src="./icons/ip-icon.svg" alt="icon" width={38} height={38} />
         <div className="space-y-2">
