@@ -1,34 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Silent Check SSO</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/keycloak-js/12.0.4/keycloak.min.js"></script>
+<html>
+  <body>
     <script>
-      console.log("Starting silent check SSO..."); // Thêm dòng này
-      const keycloak = new Keycloak({
-        url: "https://keycloak.ikameglobal.com",
-        realm: "ikame-platform",
-        clientId: "ikame-sso",
-      });
-
-      keycloak
-        .init({ onLoad: "check-sso" })
-        .then((authenticated) => {
-          console.log(
-            "Silent check SSO completed. Authenticated:",
-            authenticated
-          ); // Thêm dòng này
-          if (authenticated) {
-            window.location.href = window.location.origin;
-          } else {
-            console.warn("User not authenticated in silent check SSO."); // Thêm dòng này
-          }
-        })
-        .catch((e) => {
-          console.error("Failed to initialize Keycloak:", e);
-        });
+      // Đoạn script để giúp Keycloak kiểm tra session mà không hiển thị giao diện đăng nhập
+      parent.postMessage(location.href, location.origin);
     </script>
-  </head>
-  <body></body>
+  </body>
 </html>

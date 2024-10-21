@@ -1,6 +1,7 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { IoSearchOutline } from "react-icons/io5";
+import { UserData } from "@/entities/user";
 
 const SearchBar = () => {
   return (

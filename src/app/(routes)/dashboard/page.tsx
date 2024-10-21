@@ -16,16 +16,24 @@ import ObChecklist from "@/components/ob-checklist";
 import TeamBoard from "@/components/team/team-board";
 import DownloadBanner from "@/components/download-banner";
 import CultureBoard from "@/components/culture-board";
+import useUserData from "@/hooks/use-userdata";
+import LoadingSpinner from "@/components/loading-spinner";
+import useToolsData from "@/hooks/use-toolsdata";
 
 const Dashboard: React.FC = () => {
+  const { userInfo, loading } = useUserData();
+
+  console.log(userInfo);
+
+  if (loading) return <LoadingSpinner />;
   return (
     <div>
-      <NavBar />
+      <NavBar data={userInfo} />
       <Container>
-        <WelcomeBanner />
-        <div className="w-full sm:flex gap-8 space-y-8 ">
+        <WelcomeBanner data={userInfo} />
+        <div className="w-full sm:flex gap-8 space-y-8 sm:space-y-0">
           <div className="w-full flex flex-col gap-8">
-            {/* <SearchBar /> */}
+            <SearchBar />
             <ToolsList />
             <div className="hidden sm:block">
               <DownloadBanner />
@@ -34,7 +42,7 @@ const Dashboard: React.FC = () => {
           <div className="flex flex-col gap-8">
             <CultureBoard />
             {/* <ObChecklist /> */}
-            <TeamBoard />
+            <TeamBoard data={userInfo} />
           </div>
         </div>
         <div className="sm:hidden">

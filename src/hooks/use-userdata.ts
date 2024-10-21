@@ -52,7 +52,7 @@ const useUserData = () => {
     }
   }, [userInfo]);
 
-  return { userInfo, backendData, loading };
+  return { userInfo, loading };
 };
 
 export default useUserData;

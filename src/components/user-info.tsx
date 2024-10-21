@@ -11,35 +11,29 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { logout } from "@/moudules/services/key-cloak-service";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const UserInfo = () => {
-  const { userInfo, backendData, loading } = useUserData();
-
-  if (loading) {
-    return (
-      <div className="flex gap-2">
-        <Skeleton className="h-8 w-8 rounded-full bg-[#4E5255]/20" />
-        <div className="space-y-1.5">
-          <Skeleton className="h-3 w-32 bg-[#4E5255]/20" />
-          <Skeleton className="h-3 w-24 bg-[#4E5255]/20" />
-        </div>
-      </div>
-    );
-  }
-
+const UserInfo = ({
+  avatar,
+  name,
+  position,
+}: {
+  avatar: string;
+  name: string;
+  position: string;
+}) => {
   return (
     <div className="flex gap-2">
       <div className="h-8 w-8 rounded-full bg-[#4E5255]/20">
         <Image
           alt="user-avatar"
-          src={userInfo?.avatar!}
+          src={avatar!}
           width={32}
           height={32}
           className="rounded-full"
         />
       </div>
       <div className="space-y-0">
-        <p className="text-xs font-semibold text-[#4E5255]">{userInfo?.name}</p>
-        <p className="text-xs text-[#7A8185]">{userInfo?.positions.name}</p>
+        <p className="text-xs font-semibold text-[#4E5255]">{name}</p>
+        <p className="text-xs text-[#7A8185]">{position}</p>
       </div>
       <Popover>
         <PopoverTrigger>

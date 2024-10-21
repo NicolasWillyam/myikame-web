@@ -24,21 +24,17 @@ import { Skeleton } from "../ui/skeleton";
 import { IoSearchOutline } from "react-icons/io5";
 import { Input } from "../ui/input";
 import NotFoundMember from "../not-found-member";
+import { UserData } from "@/entities/user";
 
-const TeamMembersList = () => {
-  const { userInfo, backendData, loading } = useUserData();
+const TeamMembersList = ({ data }: { data: UserData | null }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  if (loading) {
-    return <Skeleton className="h-8 w-40 bg-[#4E5255]/20 rounded-xl" />; // Hiển thị thông báo khi đang tải dữ liệu
-  }
-
-  // Kiểm tra xem userInfo có tồn tại và có các thuộc tính cần thiết không
-  if (!userInfo || !userInfo.teams || !userInfo.teams.users) {
+  // Kiểm tra xem data có tồn tại và có các thuộc tính cần thiết không
+  if (!data || !data.teams || !data.teams.users) {
     return <p>No user data available.</p>; // Hiển thị thông báo khi không có dữ liệu người dùng
   }
 
-  const inActivedUsers = userInfo.teams.users.filter(
+  const inActivedUsers = data.teams.users.filter(
     (user) => user.is_partner === false && user.is_active === true
   );
 

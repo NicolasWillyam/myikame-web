@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import {
+import keycloak, {
   // authKeycloak,
   getToken,
   initializeKeycloak,
@@ -12,23 +12,9 @@ const LoginPage = () => {
   useEffect(() => {
     const login = async () => {
       try {
-        await initializeKeycloak(); // Gọi hàm này để khởi tạo Keycloak
-
-        const tokens = getToken(); // Lấy accessToken và refreshToken sau khi đăng nhập
-
-        if (tokens) {
-          const { accessToken, refreshToken } = tokens;
-
-          if (accessToken) {
-            localStorage.setItem("token", accessToken);
-            Cookies.set("authToken", accessToken, { expires: 7 });
-          }
-
-          if (refreshToken) {
-            Cookies.set("refreshToken", refreshToken, { expires: 7 });
-          }
-
-          window.location.href = "/dashboard"; // Chuyển hướng đến trang dashboard
+        const auth = await initializeKeycloak(); // Gọi hàm này để khởi tạo Keycloak với check-sso
+        if (auth) {
+          window.location.href = "/dashboard"; // Chuyển hướng đến trang dashboard nếu đã xác thực
         }
       } catch (error) {
         console.error("Error during Keycloak initialization:", error);
@@ -37,11 +23,8 @@ const LoginPage = () => {
 
     login();
   }, []);
-  return (
-    <div>
-      <LoadingSpinner />
-    </div>
-  );
+
+  return <div>{/* <LoadingSpinner /> */}</div>;
 };
 
 export default LoginPage;

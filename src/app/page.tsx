@@ -1,10 +1,26 @@
 "use client";
 import Logo from "@/components/logo";
+import keycloak, {
+  initializeKeycloak,
+} from "@/moudules/services/key-cloak-service";
 import Image from "next/image";
 
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    initializeKeycloak().catch((error) =>
+      console.error("Error during Keycloak initialization:", error)
+    );
+  }, []);
+  const handleLogin = () => {
+    keycloak.login({
+      redirectUri: window.location.origin + "/login",
+      idpHint: "google", // "google" là IDP bạn đã cấu hình trong Keycloak cho đăng nhập Google
+    });
+  };
+
   const router = useRouter();
   return (
     <main
@@ -32,9 +48,7 @@ export default function Home() {
             />
             <button
               className="bg-[#f9a323] w-full h-12 rounded-2xl text-lg font-semibold"
-              onClick={() => {
-                router.push("/login");
-              }}
+              onClick={handleLogin}
             >
               Login with Google
             </button>
