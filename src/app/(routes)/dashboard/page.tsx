@@ -22,9 +22,6 @@ import useToolsData from "@/hooks/use-toolsdata";
 
 const Dashboard: React.FC = () => {
   const { userInfo, loading } = useUserData();
-
-  console.log(userInfo);
-
   if (loading) return <LoadingSpinner />;
   return (
     <div>
