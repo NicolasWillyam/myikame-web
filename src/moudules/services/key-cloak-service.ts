@@ -63,7 +63,7 @@ export const initializeKeycloak = () => {
 export const logout = () => {
   if (keycloak) {
     keycloak.logout({
-      redirectUri: (window.location.href = "/"), // URL mà người dùng sẽ được chuyển đến sau khi đăng xuất
+      redirectUri: (window.location.href = "/login"), // URL mà người dùng sẽ được chuyển đến sau khi đăng xuất
     });
   } else {
     console.error("Keycloak instance is not initialized.");

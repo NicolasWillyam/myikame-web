@@ -24,7 +24,7 @@ export function middleware(req: NextRequest) {
 
   if (!token) {
     // Nếu không có token, chuyển hướng đến trang /login
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   // Nếu đã có token, cho phép tiếp tục
@@ -33,5 +33,5 @@ export function middleware(req: NextRequest) {
 
 // Định nghĩa các đường dẫn middleware sẽ áp dụng
 export const config = {
-  matcher: ["/dashboard/:path*"], // Middleware được áp dụng cho /dashboard và các sub-path của nó
+  matcher: ["/"], // Middleware được áp dụng cho /dashboard và các sub-path của nó
 };
