@@ -18,7 +18,6 @@ import DownloadBanner from "@/components/download-banner";
 import CultureBoard from "@/components/culture-board";
 import useUserData from "@/hooks/use-userdata";
 import LoadingSpinner from "@/components/loading-spinner";
-import useToolsData from "@/hooks/use-toolsdata";
 
 const Dashboard: React.FC = () => {
   const { userInfo, loading } = useUserData();
@@ -41,11 +40,12 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col gap-8">
-            {startDate && startDate >= onBoardTime ? (
+            {/* {startDate && startDate >= onBoardTime ? (
               <CultureBoard />
             ) : (
               <ObChecklist />
-            )}
+            )} */}
+            <CultureBoard />
             <TeamBoard data={userInfo} />
           </div>
         </div>
