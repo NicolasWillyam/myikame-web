@@ -24,13 +24,18 @@ const TeamName = ({ full_name }: { full_name: string }) => {
 const TeamInfo = ({ data }: { data: UserData | null }) => {
   return (
     <div className="flex flex-col gap-6">
-      <TeamManagerInfo
-        avatar={data?.teams.manager_teams[0].users?.avatar!}
-        name={data?.teams.manager_teams[0].users?.name!}
-        email={data?.teams.manager_teams[0].users?.email!}
-      />
-      <TeamName full_name={data?.teams.full_name!} />
-      <TeamMembers data={data} />
+      {data?.teams.manager_teams.length! > 0 && (
+        <TeamManagerInfo
+          avatar={data?.teams.manager_teams[0].users?.avatar!}
+          name={data?.teams.manager_teams[0].users?.name!}
+          email={data?.teams.manager_teams[0].users?.email!}
+        />
+      )}
+
+      {data?.teams.full_name! && (
+        <TeamName full_name={data?.teams.full_name!} />
+      )}
+      {data !== null && <TeamMembers data={data} />}
     </div>
   );
 };

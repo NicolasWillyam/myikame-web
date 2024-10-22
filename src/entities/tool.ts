@@ -1,6 +1,7 @@
 export interface ToolData {
   id: string;
   name: string;
+  index: number;
   label: string;
   description: string;
   icon: string | null;

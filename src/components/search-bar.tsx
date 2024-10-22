@@ -19,8 +19,10 @@ const SearchBar = () => {
 
     if (toolsData) {
       // Lọc dữ liệu dựa trên giá trị tìm kiếm
-      results = toolsData.filter((item) =>
-        item.label.toLowerCase().includes(value.toLowerCase())
+      results = toolsData.filter(
+        (item) =>
+          item.label.toLowerCase().includes(value.toLowerCase()) ||
+          item.description.toLowerCase().includes(value.toLowerCase())
       );
     }
 
@@ -50,7 +52,7 @@ const SearchBar = () => {
       {showResults && searchResults.length > 0 && (
         <div className=" absolute bg-white border mt-2 rounded-xl shadow-lg w-full z-10 max-h-60 overflow-y-auto overflow-x-hidden">
           {searchResults.map((result) => (
-            <Link href="/" key={result.id}>
+            <a href={result.link || "#"} target="_blank" key={result.id}>
               <div
                 className="p-3 h-12 flex items-center gap-2 hover:bg-gray-100 cursor-pointer mr-2 rounded-r-full"
                 onMouseDown={() => {
@@ -59,7 +61,10 @@ const SearchBar = () => {
                 }}
               >
                 <Image
-                  src="./icons/ip-icon.svg"
+                  src={
+                    result.icon ||
+                    "https://storage.googleapis.com/my-ikame-web/assets/icons/ic_app.png"
+                  }
                   alt="icon"
                   width={24}
                   height={24}
@@ -72,7 +77,7 @@ const SearchBar = () => {
                   </p>
                 </div>
               </div>
-            </Link>
+            </a>
           ))}
         </div>
       )}
