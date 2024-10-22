@@ -65,7 +65,7 @@ const checkList = [
 
 const ObChecklist = () => {
   return (
-    <div className="min-w-[392px] h-fit bg-white border gap-4 p-4 px-5 pb-6 rounded-2xl space-y-1">
+    <div className="w-full sm:w-[392px] h-fit bg-white border gap-4 p-4 px-5 pb-6 rounded-2xl space-y-1">
       <p className="font-semibold">Onboarding Checklist</p>
       <p className="text-[#7A8185] text-sm">Những gì một iKamer mới cần biết</p>
       <div className="pt-4 flex flex-col gap-6">

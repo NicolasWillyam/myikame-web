@@ -28,31 +28,34 @@ export default function Home() {
       className="w-screen h-screen bg-cover bg-no-repeat bg-center"
     >
       <div className="w-full h-full bg-black/50 text-white flex justify-center items-center">
-        <div className="grid grid-cols-2 gap-20 items-center">
-          <div className="space-y-2">
-            <p className="text-5xl font-bold ">
-              Welcome to <span className="text-[#f9a323]">MyIkame</span>
+        <div
+          style={{
+            backdropFilter: "blur(8px)", // Apply a blur effect to the background
+            boxShadow: "0px 0px 16px 0px rgba(175, 182, 186, 0.32)", // Apply a box shadow
+            background: "rgba(78, 82, 85, 0.4)", // Set the background color with 40% opacity
+          }}
+          className="px-8 py-6 sm:px-16 sm:py-10 rounded-[48px] sm:rounded-[56px] flex flex-col items-center space-y-6 sm:space-y-8"
+        >
+          <Image
+            src={"/images/logo-white.svg"}
+            alt="icon"
+            width={172}
+            height={56}
+          />
+          <div className="space-y-2 sm:space-y-4 text-center">
+            <p className="text-2xl sm:text-5xl font-extrabold">
+              Chào mừng tới, <span className="text-[#FF950F]">My iKame</span>
             </p>
-            <p className="text-2xl">
-              The <span className="text-[#f9a323] font-bold">All-in-one</span>{" "}
-              place to discover iKame
+            <p className="sm:text-2xl sm:font-bold font-medium">
+              Khám phá iKame ngày hôm nay!
             </p>
           </div>
-
-          <div className="w-full p-10 py-16 bg-white rounded-[40px] flex flex-col justify-center items-center gap-8">
-            <Image
-              src="./images/logo.svg"
-              alt="logo_image"
-              width={230}
-              height={80}
-            />
-            <button
-              className="bg-[#f9a323] w-full h-12 rounded-2xl text-lg font-semibold"
-              onClick={handleLogin}
-            >
-              Login with Google
-            </button>
-          </div>
+          <button
+            className="bg-[#FF950F] w-fit px-16 h-12 rounded-xl text-sm font-medium"
+            onClick={handleLogin}
+          >
+            Đăng nhập với Google
+          </button>
         </div>
       </div>
     </main>

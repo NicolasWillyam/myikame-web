@@ -22,6 +22,10 @@ import useToolsData from "@/hooks/use-toolsdata";
 
 const Dashboard: React.FC = () => {
   const { userInfo, loading } = useUserData();
+  const startDate = userInfo?.start_date ? new Date(userInfo.start_date) : null;
+  const onBoardTime = new Date();
+  onBoardTime.setMonth(onBoardTime.getMonth() - 2);
+
   if (loading) return <LoadingSpinner />;
   return (
     <div>
@@ -37,8 +41,11 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col gap-8">
-            <CultureBoard />
-            {/* <ObChecklist /> */}
+            {startDate && startDate >= onBoardTime ? (
+              <CultureBoard />
+            ) : (
+              <ObChecklist />
+            )}
             <TeamBoard data={userInfo} />
           </div>
         </div>

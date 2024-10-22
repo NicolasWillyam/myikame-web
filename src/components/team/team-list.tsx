@@ -23,11 +23,8 @@ const TeamList = ({ list }: { list: UserDetails[] }) => {
                   <p className="text-xs font-semibold text-[#4E5255]">
                     {item.name}
                   </p>
-                  <div className="h-1 w-1 rounded-full bg-[#D9D9D9]"></div>
-                  <p className="text-xs font-semibold text-[#4E5255]">
-                    {/* {item.name} */}
-                    iKamer
-                  </p>
+                  {/* <div className="h-1 w-1 rounded-full bg-[#D9D9D9]"></div>
+                  <p className="text-xs font-semibold text-[#4E5255]">iKamer</p> */}
                 </div>
                 <p className="text-xs text-[#7A8185]">{item.email}</p>
               </div>
