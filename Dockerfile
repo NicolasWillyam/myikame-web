@@ -4,16 +4,16 @@ FROM node:18
 # Set thư mục làm việc trong container
 WORKDIR /usr/src/app
 
-# Copy các file cần thiết cho quá trình cài đặt và build
+# Copy các file cần thiết cho quá trình cài đặt
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY .env ./
 
-# Cài đặt dependencies
-RUN npm install
+# Xóa cache và cài đặt dependencies
+RUN npm cache clean --force && npm install
 
-# Copy toàn bộ mã nguồn
-COPY . .
+# Copy toàn bộ mã nguồn vào container
+COPY . ./
 
 # Build dự án Next.js
 RUN npm run build
