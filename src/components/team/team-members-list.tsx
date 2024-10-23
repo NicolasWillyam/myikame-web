@@ -56,15 +56,16 @@ const TeamMembersList = ({ data }: { data: UserData | null }) => {
       <DialogTrigger>
         <div className="flex items-center">
           {inActivedUsers.slice(0, maxUsers).map(
-            (item, index) =>
+            (item) =>
               item.avatar !== null &&
               !item.is_partner &&
               item.is_active && (
-                <TooltipProvider>
+                <TooltipProvider key={item.id}>
+                  {" "}
+                  {/* Thêm key độc nhất từ item.id */}
                   <Tooltip>
                     <TooltipTrigger className="p-0 -mr-2">
                       <Image
-                        key={index}
                         alt="user-avatar"
                         src={item.avatar}
                         width={32}

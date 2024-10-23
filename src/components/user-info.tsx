@@ -45,7 +45,7 @@ const UserInfo = ({
           onClick={logout}
         >
           <IoLogOutOutline size={18} />
-          Logout
+          Đăng xuất
         </PopoverContent>
       </Popover>
     </div>

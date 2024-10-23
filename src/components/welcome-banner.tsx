@@ -6,10 +6,7 @@ import { UserData } from "@/entities/user";
 
 const WelcomeBanner = ({ data }: { data: UserData | null }) => {
   return (
-    <div
-      style={{ backgroundImage: `url('/images/welcome-banner.png')` }}
-      className="h-32 sm:h-[200px] bg-white bg-center bg-cover bg-no-repeat w-full flex items-center rounded-2xl px-6 sm:px-10 py-12 gap-4 sm:gap-8 border"
-    >
+    <div className="h-32 sm:h-[200px] bg-white bg-center bg-cover bg-no-repeat w-full flex items-center rounded-2xl px-6 sm:px-10 py-12 gap-4 sm:gap-8 border bg-[url('/images/welcome-banner-mobile.svg')] sm:bg-[url('/images/welcome-banner.svg')]">
       <Image
         alt="user-avatar"
         src={data?.avatar!}

@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build:
+      context: ./myikame-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_KEYCLOAK_URL: ${NEXT_PUBLIC_KEYCLOAK_URL}
+      NEXT_PUBLIC_KEYCLOAK_REALM: ${NEXT_PUBLIC_KEYCLOAK_REALM}
+      NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: ${NEXT_PUBLIC_KEYCLOAK_CLIENT_ID}
+      NEXT_PUBLIC_DOMAIN: ${NEXT_PUBLIC_DOMAIN}
+    volumes:
+      - ./myikame-frontend:/usr/src/app
+      - /usr/src/app/.next
