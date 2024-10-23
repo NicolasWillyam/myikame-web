@@ -2,14 +2,10 @@
 node_modules
 
 # Ignore build outputs
-.next
+dist
 
-# Ignore public assets (if large and you don't want them in the Docker image)
-public
-
-# Ignore environment files (you may want to keep only production .env files)
-.env
-.env.development
+# Ignore test files
+test
 
 # Ignore log files
 *.log
@@ -20,7 +16,7 @@ public
 
 # Ignore Docker-related files
 Dockerfile
-docker-compose.yml
+.dockerignore
 
 # Ignore IDE config files
 .vscode
@@ -29,4 +25,7 @@ docker-compose.yml
 # Ignore other config files that shouldn't be copied into the container
 .eslintrc.js
 .prettierrc
-tsconfig.json
+
+# Ignore md
+README.md
+

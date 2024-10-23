@@ -1,21 +1,25 @@
-# Sử dụng image Node.js làm base
+# Sử dụng image chính thức của Node.js
 FROM node:18
 
-# Thiết lập thư mục làm việc
+# Set thư mục làm việc trong container
 WORKDIR /usr/src/app
 
-# Copy package.json và package-lock.json
+# Copy các file cần thiết cho quá trình cài đặt và build
 COPY package*.json ./
+COPY tsconfig.json ./
+COPY .env ./
 
-# Cài đặt các dependencies
+# Cài đặt dependencies
 RUN npm install
 
-# Copy toàn bộ mã nguồn vào image
+# Copy toàn bộ mã nguồn
 COPY . .
 
-# Build ứng dụng Next.js
+# Build dự án Next.js
 RUN npm run build
 
-# Chạy ứng dụng Next.js
-CMD ["npm", "start"]
-# Stage 2: Setup Nginx and serve the static files
+# Expose port mà Next.js sẽ chạy
+EXPOSE 3000
+
+# Lệnh chạy Next.js ở chế độ production
+CMD ["npm", "run", "start"]
