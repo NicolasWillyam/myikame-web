@@ -16,12 +16,12 @@ const SearchMemberBar: React.FC<SearchMemberBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div className="flex items-center gap-2 bg-white px-3 rounded-xl h-10 text-[#A0A4A7] border">
+    <div className="flex items-center gap-2 bg-white px-3 rounded-xl h-10 border">
       <IoSearchOutline size={20} className="text-[#A0A4A7]" />
       <Input
         value={searchTerm}
         onChange={handleSearchChange}
-        className="rounded-xl h-9 border-none p-0 text-sm"
+        className="rounded-xl h-9 border-none p-0 text-sm text-[#4E5255] font-medium"
         placeholder="Tìm kiếm thành viên"
       />
     </div>

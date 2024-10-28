@@ -1,4 +1,4 @@
-import Keycloak from "keycloak-js";
+import Keycloak, { KeycloakProfile } from "keycloak-js";
 import Cookies from "js-cookie";
 
 const keycloakUrl = process.env.NEXT_PUBLIC_KEYCLOAK_URL!;
@@ -12,9 +12,11 @@ const keycloak = new Keycloak({
   clientId: clientId, // Đảm bảo rằng biến môi trường KEYCLOAK_CLIENT_ID đã được thiết lập
 });
 
-let isInitialized = false; // Biến để theo dõi xem Keycloak đã được khởi tạo hay chưa
+let isKeycloakInitialized = false; // Biến để theo dõi xem Keycloak đã được khởi tạo hay chưa
 
-export const initializeKeycloak = () => {
+interface KeycloakInitResponse {}
+
+export const initializeKeycloak = (): Promise<KeycloakInitResponse> => {
   return new Promise((resolve, reject) => {
     keycloak
       .init({
@@ -23,11 +25,28 @@ export const initializeKeycloak = () => {
           window.location.origin + "/silent-check-sso.html",
         pkceMethod: "S256",
       })
-      .then((authenticated) => {
-        const token = getToken();
-        storeTokens(token!);
-        resolve(keycloak);
-        return true;
+      .then(async (authenticated) => {
+        isKeycloakInitialized = true; // Đánh dấu rằng Keycloak đã được khởi tạo
+
+        if (authenticated) {
+          try {
+            const userProfile = await getUserInfo(); // Lấy thông tin người dùng
+            const accessToken = keycloak.token || null; // Lấy access token hoặc null
+            const refreshToken = keycloak.refreshToken || null; // Lấy refresh token hoặc null
+
+            // Trả về đối tượng KeycloakInitResponse
+            resolve({ userProfile });
+          } catch (error) {
+            console.error("Failed to fetch user profile:", error);
+            resolve({
+              userProfile: null,
+              accessToken: null,
+              refreshToken: null,
+            }); // Trả về null nếu có lỗi
+          }
+        } else {
+          resolve({ userProfile: null, accessToken: null, refreshToken: null }); // Trả về null nếu không xác thực
+        }
       })
       .catch((error) => {
         console.error("Failed to initialize Keycloak:", error);
@@ -36,34 +55,11 @@ export const initializeKeycloak = () => {
   });
 };
 
-// OLD VERSION
-// export const initializeKeycloak = () => {
-//   return new Promise((resolve, reject) => {
-//     keycloak
-//       .init({ onLoad: "login-required" })
-//       .then((authenticated) => {
-//         if (authenticated) {
-//           window.location.href = "/dashboard";
-//           getToken();
-//           resolve(keycloak);
-//         } else {
-//           console.warn("Not authenticated");
-//           window.location.href = "/";
-//           reject("Not authenticated");
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Failed to initialize Keycloak:", error);
-//         reject(error);
-//       });
-//   });
-// };
-
 // Hàm đăng xuất
 export const logout = () => {
   if (keycloak) {
     keycloak.logout({
-      redirectUri: (window.location.href = "/login"), // URL mà người dùng sẽ được chuyển đến sau khi đăng xuất
+      redirectUri: window.location.origin + "/login", // URL mà người dùng sẽ được chuyển đến sau khi đăng xuất
     });
   } else {
     console.error("Keycloak instance is not initialized.");
@@ -105,9 +101,26 @@ export const storeTokens = (tokens: Tokens) => {
   }
 };
 
-// Hàm tải thông tin người dùng
-export const getUserInfo = () => {
-  return keycloak.loadUserProfile();
+// Hàm tải thông tin người dùng và token
+export const getUserInfo = async () => {
+  if (!keycloak.authenticated) {
+    throw new Error("User is not authenticated");
+  }
+
+  try {
+    const userProfile = await keycloak.loadUserProfile();
+    const accessToken = keycloak.token; // Lấy access token
+    const refreshToken = keycloak.refreshToken; // Lấy refresh token
+
+    return {
+      userProfile,
+      accessToken,
+      refreshToken,
+    };
+  } catch (error) {
+    console.error("Failed to load user profile:", error);
+    throw error;
+  }
 };
 
 export default keycloak;

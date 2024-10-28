@@ -1,18 +1,10 @@
-// src/interfaces/Home/Home.tsx
 "use client";
-import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { User, UserData } from "@//entities/user";
-import { fetchUserInfo } from "@//interfaces/api/keycloak-api";
-import { fetchUserFromBackend } from "@//interfaces/api/backend-api";
-import { getUserFromBackend } from "@/use-cases/get-user-data";
-import { refreshAccessToken } from "@//utils/refresh-token-utils";
 import NavBar from "@//components/nav-bar";
 import Container from "@/components/container";
 import WelcomeBanner from "@/components/welcome-banner";
 import SearchBar from "@/components/search-bar";
 import ToolsList from "@/components/tools-list";
-import ObChecklist from "@/components/ob-checklist";
 import TeamBoard from "@/components/team/team-board";
 import DownloadBanner from "@/components/download-banner";
 import CultureBoard from "@/components/culture-board";
@@ -20,12 +12,21 @@ import useUserData from "@/hooks/use-userdata";
 import LoadingSpinner from "@/components/loading-spinner";
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    if ("caches" in window) {
+      caches.keys().then((cacheNames) => {
+        cacheNames.forEach((cacheName) => {
+          caches.delete(cacheName);
+        });
+      });
+    }
+  }, []);
+
   const { userInfo, loading } = useUserData();
-  const startDate = userInfo?.start_date ? new Date(userInfo.start_date) : null;
   const onBoardTime = new Date();
   onBoardTime.setMonth(onBoardTime.getMonth() - 2);
 
-  if (loading) return <LoadingSpinner />;
+  if (userInfo === null || loading) return <LoadingSpinner />;
   return (
     <div>
       <NavBar data={userInfo} />

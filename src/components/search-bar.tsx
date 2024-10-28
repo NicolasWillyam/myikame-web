@@ -32,7 +32,7 @@ const SearchBar = () => {
 
   return (
     <div className="relative w-full">
-      <div className="flex items-center gap-2 bg-white px-4 rounded-xl h-12 text-[#A0A4A7] border">
+      <div className="flex items-center gap-2 bg-white px-4 rounded-xl h-12 text-[#4E5255] font-medium border">
         <IoSearchOutline size={20} className="text-[#A0A4A7]" />
         <Input
           className="rounded-xl border-none p-0 text-sm"

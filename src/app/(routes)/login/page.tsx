@@ -3,15 +3,36 @@ import keycloak, {
   initializeKeycloak,
 } from "@/moudules/services/key-cloak-service";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function Home() {
+export default function LoginPage() {
+  const router = useRouter(); // Khởi tạo router
+
   useEffect(() => {
-    initializeKeycloak().catch((error) =>
-      console.error("Error during Keycloak initialization:", error)
-    );
+    if ("caches" in window) {
+      caches.keys().then((cacheNames) => {
+        cacheNames.forEach((cacheName) => {
+          caches.delete(cacheName);
+        });
+      });
+    }
   }, []);
+
+  useEffect(() => {
+    initializeKeycloak()
+      .then(() => {
+        if (keycloak.authenticated) {
+          router.push("/");
+        } else {
+          router.push("/login");
+        }
+      })
+      .catch((error) =>
+        console.error("Error during Keycloak initialization:", error)
+      );
+  }, []);
+
   const handleLogin = () => {
     keycloak.login({
       redirectUri: window.location.origin + "/auth",
@@ -20,10 +41,7 @@ export default function Home() {
   };
 
   return (
-    <main
-      style={{ backgroundImage: `url('/images/background.png')` }}
-      className="w-screen h-screen bg-cover bg-no-repeat bg-center"
-    >
+    <main className="w-screen h-screen bg-cover bg-no-repeat bg-center bg-[url('https://storage.googleapis.com/my-ikame-web/assets/images/Background.png')]">
       <div className="w-full h-full bg-black/50 text-white flex justify-center items-center">
         <div
           style={{
